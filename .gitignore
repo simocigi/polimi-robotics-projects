@@ -1,4 +1,6 @@
 start/
+*.ps1
+*.sh
 
 # devel/
 logs/
