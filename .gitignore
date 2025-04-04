@@ -2,9 +2,9 @@ start/
 *.ps1
 *.sh
 
-# devel/
+devel/
 logs/
-# build/
+build/
 bin/
 lib/
 msg_gen/
