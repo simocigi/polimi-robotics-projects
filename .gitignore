@@ -2,7 +2,7 @@ start/
 *.ps1
 *.sh
 .catkin_workspace
-catkin_ws/CMakeLists.txt
+catkin_ws/src/CMakeLists.txt
 
 devel/
 logs/
