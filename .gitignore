@@ -1,6 +1,7 @@
 start/
 *.ps1
 *.sh
+.catkin_workspace
 
 devel/
 logs/
