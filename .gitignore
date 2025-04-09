@@ -3,6 +3,7 @@ start/
 *.sh
 .catkin_workspace
 */catkin_ws/src/CMakeLists.txt
+docker/
 
 devel/
 logs/
