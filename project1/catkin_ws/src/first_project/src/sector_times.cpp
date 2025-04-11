@@ -4,8 +4,8 @@
 class Sector_Times{
 private:
 	ros::NodeHandle n;
-    ros::Publisher pub;
-    ros::Subscriber sub;
+	ros::Publisher pub;
+	ros::Subscriber sub;
 public:
 	void init(){
 		
