@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include "math.h"
-
+/*
 class GPS_Odometer{
 private:
 	ros::NodeHandle n;
@@ -41,10 +41,10 @@ public:
 
 	}
 }
-
+*/
 int main(int argc, char **argv) {
-	ros::init(argc, argv, "gps_odometer");
+/*	ros::init(argc, argv, "gps_odometer");
 	GPS_Odometer gps_odometer;
 	gps_odometer.init();
-	return 0;
+*/	return 0;
 }
