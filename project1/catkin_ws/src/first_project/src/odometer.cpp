@@ -1,4 +1,4 @@
-#include "ros/ros.h"
+/*#include "ros/ros.h"
 #include "math.h"
 #include <nav_msgs/Odometry.h>	
 #include <geometry_msgs/Quaternion.h>
@@ -61,8 +61,8 @@ int main(int argc, char **argv) {
 	odometer.init();
 	return 0;
 }
+*/
 
-/*
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include <geometry_msgs/PointStamped.h>
@@ -160,4 +160,4 @@ int main(int argc, char **argv) {
     ros::spin();
     return 0;
 }
-*/
+
