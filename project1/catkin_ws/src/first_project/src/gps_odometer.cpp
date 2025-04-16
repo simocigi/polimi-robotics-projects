@@ -9,51 +9,51 @@ private:
 	ros::NodeHandle n;
 	ros::Publisher pub;
 	ros::Subscriber sub;
-    tf::TransformBroadcaster tf_br;
-    tf::Transform tf_tr;
-    tf::Quaternion q;
+	tf::TransformBroadcaster tf_br;
+	tf::Transform tf_tr;
+	tf::Quaternion q;
 
 	double lat_r, lon_r, alt_r;
 	double lat = 0.0, lon = 0.0, alt = 0.0;
-    double lat_prev = 0.0, lon_prev = 0.0;
+	double lat_prev = 0.0, lon_prev = 0.0;
 	double x, y, z, yaw;
-    double x_prev = 0.0, y_prev = 0.0;
+	double x_prev = 0.0, y_prev = 0.0;
 
-    bool ref_set = false; // TODO da rimuovere una volta settati i parametri nel launch
+	bool ref_set = false; // TODO da rimuovere una volta settati i parametri nel launch
 
 	void getGPS(const sensor_msgs::NavSatFix::ConstPtr & _msg){
 		lat = _msg->latitude * M_PI/180;
 		lon = _msg->longitude * M_PI/180;
 		alt = _msg->altitude;
 
-        // TODO da rimuovere perché i parametri di riferimento sono da settare manualmente nel launch
-        if (!ref_set) {
-            lat_r = lat;
-            lon_r = lon;
-            alt_r = alt;
-            ref_set = true;
-        }
+		// TODO da rimuovere perché i parametri di riferimento sono da settare manualmente nel launch
+		if (!ref_set) {
+			lat_r = lat;
+			lon_r = lon;
+			alt_r = alt;
+			ref_set = true;
+		}
 
 		gps_to_odom();
-        compute_yaw();
-        update_prev();
-        publish_message();
-        publish_tf();
+		compute_yaw();
+		update_prev();
+		publish_message();
+		publish_tf();
 	}
 
 	void gps_to_odom(){ // da chiamare nel publisher
 		double X, Y, Z, X_r, Y_r, Z_r, N, N_r;
 		const double e2 = 1 - pow(6356752, 2)/pow(6378137, 2);
 
-        // from GPS to ECEF - reference position
-        N_r = 6378137 / (sqrt(1 - e2 * (pow(sin(lat_r), 2))));
-        X_r = (N_r + alt_r) * cos(lat_r) * cos(lon_r);
-        Y_r = (N_r + alt_r) * cos(lat_r) * sin(lon_r);
-        Z_r = (N_r * (1 - e2) + alt_r) * sin(lat_r);
+		// from GPS to ECEF - reference position
+		N_r = 6378137 / (sqrt(1 - e2 * (pow(sin(lat_r), 2))));
+		X_r = (N_r + alt_r) * cos(lat_r) * cos(lon_r);
+		Y_r = (N_r + alt_r) * cos(lat_r) * sin(lon_r);
+		Z_r = (N_r * (1 - e2) + alt_r) * sin(lat_r);
 
-        // from GPS to ECEF - robot position
-        N = 6378137 / (sqrt(1 - e2 * pow(sin(lat), 2)));
-        X = (N + alt) * cos(lat) * cos(lon);
+		// from GPS to ECEF - robot position
+		N = 6378137 / (sqrt(1 - e2 * pow(sin(lat), 2)));
+		X = (N + alt) * cos(lat) * cos(lon);
 		Y = (N + alt) * cos(lat) * sin(lon);
 		Z = (N * (1 - e2) + alt) * sin(lat);
 
@@ -75,40 +75,40 @@ private:
 		z = c[2];
 	}
 
-    void compute_yaw(){
-        double dx = x - x_prev;
-        double dy = y - y_prev;
-        double dist = sqrt(pow(dx, 2) + pow(dy, 2));
-        yaw = dist < 0.5 ? 90 : atan2(dy, dx) * 180 / M_PI;
-    }
+	void compute_yaw(){
+		double dx = x - x_prev;
+		double dy = y - y_prev;
+		double dist = sqrt(pow(dx, 2) + pow(dy, 2));
+		yaw = dist < 0.5 ? 90 : atan2(dy, dx) * 180 / M_PI;
+	}
 
-    void update_prev(){
-        lat_prev = lat;
-        lon_prev = lon;
-        x_prev = x;
-        y_prev = y;
-    }
+	void update_prev(){
+		lat_prev = lat;
+		lon_prev = lon;
+		x_prev = x;
+		y_prev = y;
+	}
 
-    void publish_message(){
-        nav_msgs::Odometry msg;
-        msg.header.stamp = ros::Time::now();
-        msg.header.frame_id = "odom";
-        msg.child_frame_id = "base_link";
-        msg.pose.pose.position.x = x;
-        msg.pose.pose.position.y = y;
-        msg.pose.pose.position.z = z;
-        msg.pose.pose.orientation = tf::createQuaternionMsgFromYaw(yaw);
-        this->pub.publish(msg);
-        ROS_INFO("GPS odometry has been published.");
-    }
+	void publish_message(){
+		nav_msgs::Odometry msg;
+		msg.header.stamp = ros::Time::now();
+		msg.header.frame_id = "odom";
+		msg.child_frame_id = "base_link";
+		msg.pose.pose.position.x = x;
+		msg.pose.pose.position.y = y;
+		msg.pose.pose.position.z = z;
+		msg.pose.pose.orientation = tf::createQuaternionMsgFromYaw(yaw);
+		this->pub.publish(msg);
+		ROS_INFO("GPS odometry has been published.");
+	}
 
-    void publish_tf(){
-        tf_tr.setOrigin(tf::Vector3(x, y, z));
-        q.setRPY(0, 0, yaw);   // Only yaw (2D scenario)
-        tf_tr.setRotation(q);
-        this->tf_br.sendTransform(tf::StampedTransform(tf_tr, ros::Time::now(), "odom", "base_link"));
-        ROS_INFO("Published GPS tf. Position: (%.2f, %.2f, %.2f), Orientation: %.2f", x, y, z, yaw);
-    }
+	void publish_tf(){
+		tf_tr.setOrigin(tf::Vector3(x, y, z));
+		q.setRPY(0, 0, yaw);   // Only yaw (2D scenario)
+		tf_tr.setRotation(q);
+		this->tf_br.sendTransform(tf::StampedTransform(tf_tr, ros::Time::now(), "odom", "base_link"));
+		ROS_INFO("Published GPS tf. Position: (%.2f, %.2f, %.2f), Orientation: %.2f", x, y, z, yaw);
+	}
 
 public:
 	void init(){
@@ -116,7 +116,7 @@ public:
 		ros::param::get("lon_r", lon_r);
 		ros::param::get("alt_r", alt_r);
 		pub = n.advertise<nav_msgs::Odometry>("/gps_odom", 1000);
-        sub = n.subscribe("/swiftnav/front/gps_pose", 10, &GPS_Odometer::getGPS, this);
+		sub = n.subscribe("/swiftnav/front/gps_pose", 10, &GPS_Odometer::getGPS, this);
 		ROS_INFO("gps_odometer's pub and sub are now started.");
 		ros::spin();
 	}
