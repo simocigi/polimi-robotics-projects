@@ -4,6 +4,7 @@ start/
 .catkin_workspace
 */catkin_ws/src/CMakeLists.txt
 docker/
+.idea/
 
 devel/
 logs/
