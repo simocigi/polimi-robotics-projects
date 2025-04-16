@@ -5,11 +5,18 @@ project(first_project)
 find_package(catkin REQUIRED COMPONENTS
 	roscpp
 	std_msgs
+	geometry_msgs
+	tf
 )
 
 
 ## Declare a catkin package
-catkin_package()
+catkin_package( CATKIN_DEPENDS 
+	roscpp
+	std_msgs
+	geometry_msgs 
+	tf
+)
 
 ## Build talker and listener
 include_directories(include ${catkin_INCLUDE_DIRS})

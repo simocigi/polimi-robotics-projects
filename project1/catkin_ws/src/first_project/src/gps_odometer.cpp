@@ -43,7 +43,7 @@ private:
 
 	void gps_to_odom(){ // da chiamare nel publisher
 		double X, Y, Z, X_r, Y_r, Z_r, N, N_r;
-		const double e2 = 1 - 6356752^2/6378137^2;
+		const double e2 = 1 - pow(6356752, 2)/pow(6378137, 2);
 
         // from GPS to ECEF - reference position
         N_r = 6378137 / (sqrt(1 - e2 * (pow(sin(lat_r), 2))));
