@@ -27,7 +27,7 @@ private:
 		double dt = (current_time - last_time).toSec();
 		last_time = current_time;
 
-        // Bycicle approximation
+		// Bycicle approximation
 		double omega = speed / wheelbase * tan(steer);
 		yaw += omega * dt;
 		x += speed * cos(yaw) * dt;
@@ -64,11 +64,11 @@ private:
 public:
 	void init(){
 		pub = n.advertise<nav_msgs::Odometry>("/odom", 1000);
-		sub = n.subscribe("/speedsteer", 1, &Odometer::compute_odometry, this);
+		sub = n.subscribe("/speedsteer", 10, &Odometer::compute_odometry, this);
 		ROS_INFO("gps_odometer's pub and sub are now started.");
 		do{
 			last_time = ros::Time::now();
-		} while(!last_time.isValid());
+		}while(!last_time.isValid());
 		ros::spin();
 	}
 };
