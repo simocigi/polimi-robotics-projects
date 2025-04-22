@@ -10,8 +10,8 @@
 
 class Sector_Times{
 private:
-	ros::NodeHandle n;
-	ros::Publisher pub;
+    ros::NodeHandle n;
+    ros::Publisher pub;
 
     double lat = 0.0, lon = 0.0;
     double steer = 0.0, speed = 0.0;
