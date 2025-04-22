@@ -18,7 +18,7 @@ private:
 
 	const double wheelbase = 1.765;
 	const int steer_factor = 32;
-	double x = 0.0, y = 0.0, yaw = 0.0;
+	double x = 0.0, y = 0.0, yaw = M_PI/2;
 
 	void compute_odometry(const geometry_msgs::PointStampedConstPtr & _msg){
 		double steer = _msg->point.x / steer_factor * M_PI / 180; // rad
@@ -29,9 +29,9 @@ private:
 
         // Bycicle approximation
 		double omega = speed / wheelbase * tan(steer);
-		yaw += omega * dt;
 		x += speed * cos(yaw) * dt;
 		y += speed * sin(yaw) * dt;
+		yaw += omega * dt;
 
 		publish_message(speed, omega);
 		publish_tf();
@@ -65,7 +65,7 @@ public:
 	void init(){
 		pub = n.advertise<nav_msgs::Odometry>("/odom", 1000);
 		sub = n.subscribe("/speedsteer", 1, &Odometer::compute_odometry, this);
-		ROS_INFO("gps_odometer's pub and sub are now started.");
+		ROS_INFO("odometer's pub and sub are now started.");
 		do{
 			last_time = ros::Time::now();
 		} while(!last_time.isValid());
