@@ -10,16 +10,10 @@
 
 class Sector_Times{
 private:
-<<<<<<< Updated upstream
     ros::NodeHandle n;
     ros::Publisher pub;
-=======
-	ros::NodeHandle n;
-	ros::Publisher pub;
     ros::Time now, last_time;
->>>>>>> Stashed changes
 
-    double lat = 0.0, lon = 0.0;
     double lat = 0.0, lon = 0.0, lat_prev, lon_prev;
     double steer = 0.0, speed = 0.0;
     double total_time, total_distance;
@@ -27,18 +21,11 @@ private:
 
 
     void set_parameters(const geometry_msgs::PointStampedConstPtr & msg1, const sensor_msgs::NavSatFix::ConstPtr & msg2){
-        steer = msg1->point.x;
-        speed = msg1->point.y;
         // steer = msg1->point.x;
         speed = msg1->point.y / 3.6;
         lat = msg2->latitude;
         lon = msg2->longitude;
-        ROS_INFO ("Received two messages: (%f,%f) and (%f,%f)", steer, speed, lat, lon);
-        localize_sector();
-    }
-
-    void localize_sector(){
-
+        ROS_INFO ("Received two messages: (%f) and (%f,%f)", speed, lat, lon);
         now = ros::Time::now();
         double dt = (now - last_time).toSec();
         total_time += dt;
@@ -52,21 +39,15 @@ private:
         }
     }
 
-    void timer(){
-        
     int localize_sector(){
         return 0;
     }
-
-    void compute_mean_speed(){
 
     void reset(){
         total_distance = 0;
         total_time = 0;
         last_time = ros::Time::now();
     }
-
-    void publish(){
 
     void publish(double dt){
         total_distance += speed * dt;
