@@ -10,15 +10,27 @@
 
 class Sector_Times{
 private:
+<<<<<<< Updated upstream
     ros::NodeHandle n;
     ros::Publisher pub;
+=======
+	ros::NodeHandle n;
+	ros::Publisher pub;
+    ros::Time now, last_time;
+>>>>>>> Stashed changes
 
     double lat = 0.0, lon = 0.0;
+    double lat = 0.0, lon = 0.0, lat_prev, lon_prev;
     double steer = 0.0, speed = 0.0;
+    double total_time, total_distance;
+    int sector = 0, sector_prev = 0;
+
 
     void set_parameters(const geometry_msgs::PointStampedConstPtr & msg1, const sensor_msgs::NavSatFix::ConstPtr & msg2){
         steer = msg1->point.x;
         speed = msg1->point.y;
+        // steer = msg1->point.x;
+        speed = msg1->point.y / 3.6;
         lat = msg2->latitude;
         lon = msg2->longitude;
         ROS_INFO ("Received two messages: (%f,%f) and (%f,%f)", steer, speed, lat, lon);
@@ -27,23 +39,56 @@ private:
 
     void localize_sector(){
 
+        now = ros::Time::now();
+        double dt = (now - last_time).toSec();
+        total_time += dt;
+        last_time = now;
+        sector = localize_sector();
+        if(sector == sector_prev)
+            publish(dt);
+        else{
+            reset();
+            publish(dt);
+        }
     }
 
     void timer(){
         
+    int localize_sector(){
+        return 0;
     }
 
     void compute_mean_speed(){
 
+    void reset(){
+        total_distance = 0;
+        total_time = 0;
+        last_time = ros::Time::now();
     }
 
     void publish(){
 
+    void publish(double dt){
+        total_distance += speed * dt;
+        sector_prev = sector;
+        if(total_time != 0){
+            double speed_average = total_distance / total_time;
+            first_project::Sector_times msg;
+            msg.current_sector = sector;
+            msg.current_sector_time = total_time;
+            msg.current_sector_mean_speed = speed_average;
+            pub.publish(msg);
+            ROS_INFO("sector times' message has been published.");
+            ROS_INFO("Sector: %d\nTime: %f s\nMean speed: %f m/s", sector, total_time, speed_average);
+        }
     }
 
 public:
 	void init(){
         pub = n.advertise<first_project::Sector_times>("/sector_times", 1000);
+        do{
+            last_time = ros::Time::now();
+        }while(!last_time.isValid());
         message_filters::Subscriber<geometry_msgs::PointStamped> sub1(n, "/speedsteer", 1);
         message_filters::Subscriber<sensor_msgs::NavSatFix> sub2(n, "/swiftnav/front/gps_pose", 1);
         //message_filters::TimeSynchronizer<geometry_msgs::PointStamped, sensor_msgs::NavSatFix> sync(sub1, sub2, 10);

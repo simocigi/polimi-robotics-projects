@@ -64,11 +64,11 @@ private:
 public:
 	void init(){
 		pub = n.advertise<nav_msgs::Odometry>("/odom", 1000);
-		sub = n.subscribe("/speedsteer", 10, &Odometer::compute_odometry, this);
-		ROS_INFO("gps_odometer's pub and sub are now started.");
 		do{
 			last_time = ros::Time::now();
 		}while(!last_time.isValid());
+        sub = n.subscribe("/speedsteer", 10, &Odometer::compute_odometry, this);
+        ROS_INFO("gps_odometer's pub and sub are now started.");
 		ros::spin();
 	}
 };
