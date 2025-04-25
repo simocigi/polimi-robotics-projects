@@ -1,0 +1,12 @@
+<launch>
+    <param name="/use_sim_time" value="true"/>
+    <param name="lat_r" value="45.61893210546475"/>
+    <param name="lon_r" value="9.281178770655666"/>
+    <param name="alt_r" value="0.0"/>
+
+    <!-- <node pkg="first_project" type="odometer" name="vehicle_odometer" output="screen"/>
+    <node pkg="first_project" type="gps_odometer" name="gps_odometer" output="screen"/> -->
+    <node pkg="first_project" type="sector_times" name="sector_times" output="screen"/>
+
+    <node pkg="rosbag" type="play" name="bag" args="--clock ../data/project.bag"/> 
+</launch>

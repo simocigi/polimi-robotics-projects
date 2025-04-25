@@ -19,7 +19,7 @@ private:
 	double x, y, z, yaw;
 	double x_prev = 0.0, y_prev = 0.0;
 
-	bool ref_set = false; // TODO da rimuovere una volta settati i parametri nel launch
+	//bool ref_set = false; // TODO da rimuovere una volta settati i parametri nel launch
 
 	void getGPS(const sensor_msgs::NavSatFix::ConstPtr & _msg){
 		lat = _msg->latitude * M_PI/180;
@@ -27,12 +27,12 @@ private:
 		alt = _msg->altitude;
 
 		// TODO da rimuovere perché i parametri di riferimento sono da settare manualmente nel launch
-		if (!ref_set) {
+		/*if (!ref_set) {
 			lat_r = lat;
 			lon_r = lon;
 			alt_r = alt;
 			ref_set = true;
-		}
+		}*/
 
 		gps_to_odom();
 		compute_yaw();

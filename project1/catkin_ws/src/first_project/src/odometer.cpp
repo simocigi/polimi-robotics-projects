@@ -79,11 +79,11 @@ private:
 public:
 	void init(){
 		pub = n.advertise<nav_msgs::Odometry>("/odom", 1000);
-		sub = n.subscribe("/speedsteer", 1, &Odometer::compute_odometry, this);
-		ROS_INFO("odometer's pub and sub are now started.");
 		do{
 			last_time = ros::Time::now();
-		} while(!last_time.isValid());
+		}while(!last_time.isValid());
+        sub = n.subscribe("/speedsteer", 10, &Odometer::compute_odometry, this);
+        ROS_INFO("odometer's pub and sub are now started.");
 		ros::spin();
 	}
 };
