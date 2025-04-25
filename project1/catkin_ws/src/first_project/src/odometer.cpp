@@ -18,7 +18,7 @@ private:
 
 	const double wheelbase = 1.765;
 	const int steer_factor = 32;
-	double x = 0.0, y = 0.0, yaw = 0.0;
+	double x = 0.0, y = 0.0, yaw = 90;
 
 	void compute_odometry(const geometry_msgs::PointStampedConstPtr & _msg){
 		double steer = _msg->point.x / steer_factor * M_PI / 180; // rad
@@ -26,13 +26,27 @@ private:
 		ros::Time current_time = ros::Time::now();
 		double dt = (current_time - last_time).toSec();
 		last_time = current_time;
-
-		// Bycicle approximation
 		double omega = speed / wheelbase * tan(steer);
-		yaw += omega * dt;
-		x += speed * cos(yaw) * dt;
+        // Euler integration
+	/*	x += speed * cos(yaw) * dt;
 		y += speed * sin(yaw) * dt;
+		yaw += omega * dt;
+	*/
 
+	//exact integration + runge-kutta
+		if(omega<0.01 && omega>-0.01){
+			//runge-kutta	
+			x += speed * dt * cos(yaw + omega*dt/2);
+			y += speed * dt * sin(yaw + omega*dt/2);
+			yaw += omega * dt;
+		} else{
+			//exact approx
+			double old_yaw = yaw;
+			yaw += omega * dt;
+			x += (speed / omega) * (sin(yaw) - sin(old_yaw));
+			y -= (speed / omega) * (cos(yaw) - cos(old_yaw));
+		}
+		
 		publish_message(speed, omega);
 		publish_tf();
 	}
@@ -46,7 +60,8 @@ private:
 		msg.pose.pose.position.y = y;
 		msg.pose.pose.position.z = 0.0;
 		msg.pose.pose.orientation = tf::createQuaternionMsgFromYaw(yaw);
-		msg.twist.twist.linear.x = speed;
+		msg.twist.twist.linear.x = speed*cos(yaw);
+		msg.twist.twist.linear.y = speed*sin(yaw);
 		msg.twist.twist.angular.z = omega;
 		this->pub.publish(msg);
 		ROS_INFO("Published message. Position: (%.2f, %.2f, 0.0), Orientation: %.2f", x, y, yaw);
@@ -68,7 +83,7 @@ public:
 			last_time = ros::Time::now();
 		}while(!last_time.isValid());
         sub = n.subscribe("/speedsteer", 10, &Odometer::compute_odometry, this);
-        ROS_INFO("gps_odometer's pub and sub are now started.");
+        ROS_INFO("odometer's pub and sub are now started.");
 		ros::spin();
 	}
 };
