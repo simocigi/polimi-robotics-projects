@@ -17,7 +17,7 @@ private:
     double lat = 0.0, lon = 0.0, lat_prev, lon_prev;
     double steer = 0.0, speed = 0.0;
     double total_time, total_distance;
-    int sector = 0, sector_prev = 0;
+    int sector = 1, sector_prev = 1;
 
 
     void set_parameters(const geometry_msgs::PointStampedConstPtr & msg1, const sensor_msgs::NavSatFix::ConstPtr & msg2){
@@ -40,7 +40,33 @@ private:
     }
 
     int localize_sector(){
-        return 0;
+        const double FIRST_SECTOR_LAT = 45.61553154189557;
+        const double FIRST_SECTOR_LON = 9.280749006741264;
+        const double SECOND_SECTOR_LAT = 45.630096889310636;
+        const double SECOND_SECTOR_LON = 9.290098543548453;
+        const double THIRD_SECTOR_LAT = 45.62342108025827;
+        const double THIRD_SECTOR_LON = 9.286983873232417;
+        const double FIRST_THIRD_TRESHOLD_LON = 9.282426505863883;
+        const double FIRST_SECOND_TRESHOLD_LAT = 45.62884802683569;
+
+        if(lat == 0 || lon == 0) // if GPS signal is not available
+            return sector_prev;
+        if(lat <= FIRST_SECTOR_LAT) // yellow bottom curve
+            return 3;
+        else if(lat >= SECOND_SECTOR_LAT) // blue upper curve
+            return 2;
+        else if(lon >= SECOND_SECTOR_LON) // blue rightmost part
+            return 2;
+        else if(lat <= THIRD_SECTOR_LAT && lon >= FIRST_THIRD_TRESHOLD_LON) // yellow part succeeding the blue sector
+            return 3;
+        else if(lat <= THIRD_SECTOR_LAT && lon < FIRST_THIRD_TRESHOLD_LON) // red part succeeding the yellow sector
+            return 1;
+        else if(lon <= THIRD_SECTOR_LON) // red upper part
+            return 1;
+        else if(lat > FIRST_SECOND_TRESHOLD_LAT) // small final part of red sector preceding blue sector
+            return 1;
+        else
+            return 2;
     }
 
     void reset(){
