@@ -27,11 +27,12 @@ private:
 		double dt = (current_time - last_time).toSec();
 		last_time = current_time;
 		double omega = speed / wheelbase * tan(steer);
-        // Euler integration
-	/*	x += speed * cos(yaw) * dt;
+        	// Euler integration
+		/*
+		x += speed * cos(yaw) * dt;
 		y += speed * sin(yaw) * dt;
 		yaw += omega * dt;
-	*/
+		*/
 
 	//exact integration + runge-kutta
 		if(omega<0.01 && omega>-0.01){
@@ -82,8 +83,8 @@ public:
 		do{
 			last_time = ros::Time::now();
 		}while(!last_time.isValid());
-        sub = n.subscribe("/speedsteer", 10, &Odometer::compute_odometry, this);
-        ROS_INFO("odometer's pub and sub are now started.");
+        	sub = n.subscribe("/speedsteer", 10, &Odometer::compute_odometry, this);
+        	ROS_INFO("odometer's pub and sub are now started.");
 		ros::spin();
 	}
 };
