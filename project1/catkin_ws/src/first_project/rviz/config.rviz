@@ -7,7 +7,7 @@ Panels:
         - /Global Options1
         - /Status1
         - /TF1
-        - /TF1/Status1
+//      - /TF1/Status1
         - /Odometry1/Shape1
         - /Odometry2/Shape1
       Splitter Ratio: 0.5
@@ -82,6 +82,7 @@ Visualization Manager:
             {}
       Update Interval: 0
       Value: true
+    - Angle Tolerance: 0.10000000149011612
       Class: rviz/Odometry
       Covariance:
         Orientation:
@@ -150,6 +151,7 @@ Visualization Manager:
         Value: Arrow
       Topic: /gps_odom
       Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
