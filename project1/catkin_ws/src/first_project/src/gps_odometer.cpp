@@ -19,7 +19,7 @@ private:
 	double x, y, z, yaw;
 	double x_prev = 0.0, y_prev = 0.0;
 
-	//bool ref_set = false; // TODO da rimuovere una volta settati i parametri nel launch
+	bool ref_set = false; // TODO da rimuovere una volta settati i parametri nel launch
 
 	void getGPS(const sensor_msgs::NavSatFix::ConstPtr & _msg){
 		lat = _msg->latitude * M_PI/180;
@@ -27,12 +27,12 @@ private:
 		alt = _msg->altitude;
 
 		// TODO da rimuovere perché i parametri di riferimento sono da settare manualmente nel launch
-		/*if (!ref_set) {
+		if (!ref_set) {
 			lat_r = lat;
 			lon_r = lon;
 			alt_r = alt;
 			ref_set = true;
-		}*/
+		}
 
 		gps_to_odom();
 		compute_yaw();
@@ -112,9 +112,9 @@ private:
 
 public:
 	void init(){
-		ros::param::get("lat_r", lat_r);
-		ros::param::get("lon_r", lon_r);
-		ros::param::get("alt_r", alt_r);
+		//ros::param::get("lat_r", lat_r);
+		//ros::param::get("lon_r", lon_r);
+		//ros::param::get("alt_r", alt_r);
 		pub = n.advertise<nav_msgs::Odometry>("/gps_odom", 1000);
 		sub = n.subscribe("/swiftnav/front/gps_pose", 10, &GPS_Odometer::getGPS, this);
 		ROS_INFO("gps_odometer's pub and sub are now started.");
