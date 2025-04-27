@@ -4,9 +4,10 @@
     <param name="lon_r" value="9.281178770655666"/>
     <param name="alt_r" value="0.0"/>
 
-    <!-- <node pkg="first_project" type="odometer" name="vehicle_odometer" output="screen"/>
-    <node pkg="first_project" type="gps_odometer" name="gps_odometer" output="screen"/> -->
+    <node pkg="first_project" type="odometer" name="vehicle_odometer" output="screen"/>
+    <node pkg="first_project" type="gps_odometer" name="gps_odometer" output="screen"/>
     <node pkg="first_project" type="sector_times" name="sector_times" output="screen"/>
 
-    <node pkg="rosbag" type="play" name="bag" args="--clock ../data/project.bag"/> 
+    <node pkg="rosbag" type="play" name="data" args="--clock ../data/project.bag"/>
+    <node pkg="rosbag" type="record" name="test" args="-a -o ../data/test.bag"/>
 </launch>
