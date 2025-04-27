@@ -79,7 +79,7 @@ private:
 		double dx = x - x_prev;
 		double dy = y - y_prev;
 		double dist = sqrt(pow(dx, 2) + pow(dy, 2));
-		yaw = dist < 0.5 ? 90 : atan2(dy, dx) * 180 / M_PI;
+		yaw = dist < 0.05 ? 90 : atan2(dy, dx) * 180 / M_PI;
 	}
 
 	void update_prev(){
@@ -92,8 +92,8 @@ private:
 	void publish_message(){
 		nav_msgs::Odometry msg;
 		msg.header.stamp = ros::Time::now();
-		msg.header.frame_id = "odom";
-		msg.child_frame_id = "base_link";
+		msg.header.frame_id = "start";
+		msg.child_frame_id = "gps_odom";
 		msg.pose.pose.position.x = x;
 		msg.pose.pose.position.y = y;
 		msg.pose.pose.position.z = z;
@@ -106,7 +106,7 @@ private:
 		tf_tr.setOrigin(tf::Vector3(x, y, z));
 		q.setRPY(0, 0, yaw);   // Only yaw (2D scenario)
 		tf_tr.setRotation(q);
-		this->tf_br.sendTransform(tf::StampedTransform(tf_tr, ros::Time::now(), "odom", "base_link"));
+		this->tf_br.sendTransform(tf::StampedTransform(tf_tr, ros::Time::now(), "start", "gps_odom"));
 		ROS_INFO("Published GPS tf. Position: (%.2f, %.2f, %.2f), Orientation: %.2f", x, y, z, yaw);
 	}
 
