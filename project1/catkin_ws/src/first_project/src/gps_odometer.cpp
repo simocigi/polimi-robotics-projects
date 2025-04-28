@@ -31,7 +31,7 @@ private:
 			lon_r = lon;
 			alt_r = alt;
 			ref_set = true;
-            ROS_INFO("\nlat_r = %f\nlon_r = %f\nalt_r = %f", lat_r, lon_r, alt_r);
+            		ROS_INFO("\nlat_r = %f\nlon_r = %f\nalt_r = %f", lat_r, lon_r, alt_r);
 		}*/
 
 		gps_to_odom();
@@ -79,7 +79,7 @@ private:
 		double dx = x - x_prev;
 		double dy = y - y_prev;
 		double dist = sqrt(pow(dx, 2) + pow(dy, 2));
-        yaw = dist < 0.05 ? 90 * M_PI/180 : atan2(dy, dx);
+        	yaw = dist < 0.05 ? 90 * M_PI/180 : atan2(dy, dx);
 	}
 
 	void update_prev(){
@@ -115,8 +115,8 @@ public:
 		ros::param::get("lat_r", lat_r);
 		ros::param::get("lon_r", lon_r);
 		ros::param::get("alt_r", alt_r);
-        lat_r = lat_r * M_PI/180;
-        lon_r = lon_r * M_PI/180;
+        	lat_r = lat_r * M_PI/180;
+        	lon_r = lon_r * M_PI/180;
 		pub = n.advertise<nav_msgs::Odometry>("/gps_odom", 1000);
 		sub = n.subscribe("/swiftnav/front/gps_pose", 10, &GPS_Odometer::getGPS, this);
 		ROS_INFO("gps_odometer's pub and sub are now started.");
