@@ -18,7 +18,7 @@ private:
 
 	const double wheelbase = 1.765;
 	const int steer_factor = 32;
-	double x = 0.0, y = 0.0, yaw = 90;
+	double x = 0.0, y = 0.0, yaw = M_PI/2;
 
 	void compute_odometry(const geometry_msgs::PointStampedConstPtr & _msg){
 		double steer = _msg->point.x / steer_factor * M_PI / 180; // rad
@@ -66,7 +66,7 @@ private:
 		msg.twist.twist.linear.y = speed*sin(yaw);
 		msg.twist.twist.angular.z = omega;
 		this->pub.publish(msg);
-		ROS_INFO("Published odometer message. Position: (%.2f, %.2f, 0.0), Orientation: %.2f", x, y, yaw);
+		ROS_INFO("Published odometer message. Position: (%.2f, %.2f, 0.0), Orientation: %.2f", x, y, yaw * 180 / M_PI);
 	}
 
 	void publish_tf(){

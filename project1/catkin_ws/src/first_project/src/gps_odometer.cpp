@@ -79,7 +79,7 @@ private:
 		double dx = x - x_prev;
 		double dy = y - y_prev;
 		double dist = sqrt(pow(dx, 2) + pow(dy, 2));
-		yaw = dist < 0.05 ? 90 : atan2(dy, dx) * 180 / M_PI;
+        yaw = dist < 0.05 ? 90 * M_PI/180 : atan2(dy, dx);
 	}
 
 	void update_prev(){
@@ -99,7 +99,7 @@ private:
 		msg.pose.pose.position.z = z;
 		msg.pose.pose.orientation = tf::createQuaternionMsgFromYaw(yaw);
 		this->pub.publish(msg);
-		ROS_INFO("Published gps odometer message. Position: (%.2f, %.2f, %.2f), Orientation: %.2f", x, y, z, yaw);
+		ROS_INFO("Published gps odometer message. Position: (%.2f, %.2f, %.2f), Orientation: %.2f", x, y, z, yaw * 180 / M_PI);
 	}
 
 	void publish_tf(){
