@@ -27,20 +27,21 @@ private:
 		double dt = (current_time - last_time).toSec();
 		last_time = current_time;
 		double omega = speed / wheelbase * tan(steer);
-        	// Euler integration
+
+        // Euler integration
 		/*
 		x += speed * cos(yaw) * dt;
 		y += speed * sin(yaw) * dt;
 		yaw += omega * dt;
 		*/
 
-	//exact integration + runge-kutta
+	    //exact integration + runge-kutta
 		if(omega<0.01 && omega>-0.01){
 			//runge-kutta	
 			x += speed * dt * cos(yaw + omega*dt/2);
 			y += speed * dt * sin(yaw + omega*dt/2);
 			yaw += omega * dt;
-		} else{
+		}else{
 			//exact approx
 			double old_yaw = yaw;
 			yaw += omega * dt;
@@ -56,7 +57,7 @@ private:
 		nav_msgs::Odometry msg;
 		msg.header.stamp = ros::Time::now();
 		msg.header.frame_id = "start";
-		msg.child_frame_id = "odom";
+		msg.child_frame_id = "odom-vehicle";
 		msg.pose.pose.position.x = x;
 		msg.pose.pose.position.y = y;
 		msg.pose.pose.position.z = 0.0;
@@ -72,7 +73,7 @@ private:
 		tf_tr.setOrigin(tf::Vector3(x, y, 0.0));
 		tf_q.setRPY(0, 0, yaw);
 		tf_tr.setRotation(tf_q);
-		tf_br.sendTransform(tf::StampedTransform(tf_tr, ros::Time::now(), "start", "odom"));
+		tf_br.sendTransform(tf::StampedTransform(tf_tr, ros::Time::now(), "start", "odom-vehicle"));
 		ROS_INFO("Published tf. Position: (%.2f, %.2f, 0.0), Orientation: %.2f", x, y, yaw);
 	}
 	
