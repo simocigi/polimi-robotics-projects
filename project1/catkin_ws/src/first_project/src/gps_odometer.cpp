@@ -99,7 +99,7 @@ private:
 		msg.pose.pose.position.z = z;
 		msg.pose.pose.orientation = tf::createQuaternionMsgFromYaw(yaw);
 		this->pub.publish(msg);
-		ROS_INFO("GPS odometry has been published.");
+		ROS_INFO("Published gps odometer message. Position: (%.2f, %.2f, %.2f), Orientation: %.2f", x, y, z, yaw);
 	}
 
 	void publish_tf(){
@@ -107,7 +107,7 @@ private:
 		q.setRPY(0, 0, yaw);   // Only yaw (2D scenario)
 		tf_tr.setRotation(q);
 		this->tf_br.sendTransform(tf::StampedTransform(tf_tr, ros::Time::now(), "odom", "gps"));
-		ROS_INFO("Published GPS tf. Position: (%.2f, %.2f, %.2f), Orientation: %.2f", x, y, z, yaw);
+		ROS_INFO("Published tf odom-gps.");
 	}
 
 public:
