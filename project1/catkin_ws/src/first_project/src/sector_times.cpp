@@ -18,6 +18,7 @@ private:
     double steer = 0.0, speed = 0.0;
     double total_time, total_distance;
     int sector = 1, sector_prev = 1;
+    bool first_message = true;
 
 
     void set_parameters(const geometry_msgs::PointStampedConstPtr & msg1, const sensor_msgs::NavSatFix::ConstPtr & msg2){
@@ -27,6 +28,15 @@ private:
         lon = msg2->longitude;
         ROS_INFO ("Received two messages: (%f) and (%f,%f)", speed, lat, lon);
         now = ros::Time::now();
+
+	// check first message
+	if (first_message) {
+	    last_time = now;
+	    first_message = false;
+	    return;  // Esci dalla funzione, non pubblichi nulla al primo messaggio
+	// Primo messaggio: aggiorna solo last_time, NON calcola dt, NON aggiorna tempo e distanza.
+	}
+	    
         double dt = (now - last_time).toSec();
         total_time += dt;
         last_time = now;
