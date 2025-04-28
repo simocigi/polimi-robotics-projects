@@ -66,7 +66,7 @@ private:
 		msg.twist.twist.linear.y = speed*sin(yaw);
 		msg.twist.twist.angular.z = omega;
 		this->pub.publish(msg);
-		ROS_INFO("Published message. Position: (%.2f, %.2f, 0.0), Orientation: %.2f", x, y, yaw);
+		ROS_INFO("Published ddometer message. Position: (%.2f, %.2f, 0.0), Orientation: %.2f", x, y, yaw);
 	}
 
 	void publish_tf(){
@@ -74,7 +74,7 @@ private:
 		tf_q.setRPY(0, 0, yaw);
 		tf_tr.setRotation(tf_q);
 		tf_br.sendTransform(tf::StampedTransform(tf_tr, ros::Time::now(), "odom", "vehicle"));
-		ROS_INFO("Published tf. Position: (%.2f, %.2f, 0.0), Orientation: %.2f", x, y, yaw);
+		ROS_INFO("Published tf odom-vehicle.");
 	}
 	
 
