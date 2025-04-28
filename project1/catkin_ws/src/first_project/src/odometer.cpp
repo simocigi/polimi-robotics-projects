@@ -56,8 +56,8 @@ private:
 	void publish_message(double speed, double omega){
 		nav_msgs::Odometry msg;
 		msg.header.stamp = ros::Time::now();
-		msg.header.frame_id = "start";
-		msg.child_frame_id = "odom-vehicle";
+		msg.header.frame_id = "odom";
+		msg.child_frame_id = "vehicle";
 		msg.pose.pose.position.x = x;
 		msg.pose.pose.position.y = y;
 		msg.pose.pose.position.z = 0.0;
@@ -73,7 +73,7 @@ private:
 		tf_tr.setOrigin(tf::Vector3(x, y, 0.0));
 		tf_q.setRPY(0, 0, yaw);
 		tf_tr.setRotation(tf_q);
-		tf_br.sendTransform(tf::StampedTransform(tf_tr, ros::Time::now(), "start", "odom-vehicle"));
+		tf_br.sendTransform(tf::StampedTransform(tf_tr, ros::Time::now(), "odom", "vehicle"));
 		ROS_INFO("Published tf. Position: (%.2f, %.2f, 0.0), Orientation: %.2f", x, y, yaw);
 	}
 	
