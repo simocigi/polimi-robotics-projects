@@ -66,7 +66,7 @@ private:
 		msg.twist.twist.linear.y = speed*sin(yaw);
 		msg.twist.twist.angular.z = omega;
 		this->pub.publish(msg);
-		ROS_INFO("Published ddometer message. Position: (%.2f, %.2f, 0.0), Orientation: %.2f", x, y, yaw);
+		ROS_INFO("Published odometer message. Position: (%.2f, %.2f, 0.0), Orientation: %.2f", x, y, yaw);
 	}
 
 	void publish_tf(){
