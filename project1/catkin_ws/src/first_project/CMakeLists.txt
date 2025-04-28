@@ -6,8 +6,11 @@ find_package(catkin REQUIRED COMPONENTS
 	roscpp
 	std_msgs
 	geometry_msgs
+	sensor_msgs
+	nav_msgs
 	message_generation
 	tf
+	message_filters
 )
 
 ## Generate messages in the 'msg' folder
@@ -26,9 +29,12 @@ add_message_files(
 catkin_package( CATKIN_DEPENDS 
 	roscpp
 	std_msgs
-	geometry_msgs 
+	geometry_msgs
+	sensor_msgs
+	nav_msgs
+	message_generation
 	tf
-	message_runtime
+	message_filters
 )
 
 ## Build talker and listener
