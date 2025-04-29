@@ -29,7 +29,7 @@ private:
         now = ros::Time::now();
         double dt = (now - last_time).toSec();
         total_time += dt;
-        ROS_INFO("\nlast_time = %f\nnow = %f\ndt = %f\ntotal_time = %f", last_time.toSec(), now.toSec(), dt, total_time);
+        //ROS_INFO("\nlast_time = %f\nnow = %f\ndt = %f\ntotal_time = %f", last_time.toSec(), now.toSec(), dt, total_time);
         last_time = now;
         sector = localize_sector();
         if(sector == sector_prev)
