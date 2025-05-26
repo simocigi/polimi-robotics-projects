@@ -108,10 +108,10 @@ Visualization Manager:
         Axes Length: 1
         Axes Radius: 0.10000000149011612
         Color: 0; 0; 255
-        Head Length: 2
-        Head Radius: 2
-        Shaft Length: 4
-        Shaft Radius: 0.5
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
         Value: Arrow
       Topic: /odom
       Unreliable: false
@@ -143,10 +143,10 @@ Visualization Manager:
         Axes Length: 1
         Axes Radius: 0.10000000149011612
         Color: 255; 25; 0
-        Head Length: 2
-        Head Radius: 2
-        Shaft Length: 4
-        Shaft Radius: 0.5
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
         Value: Arrow
       Topic: /gps_odom
       Unreliable: false
