@@ -28,12 +28,12 @@ private:
         msg.range_min = front->range_min;
         msg.range_max = front->range_max;
 
-        msg.ranges.assign(front->ranges.size(), std::numeric_limits<float>::infinity());
+        msg.ranges.assign(N, std::numeric_limits<float>::infinity());
         //msg.intensities.assign(N, 0.0f);
 
-        for(int i = 0; i < front->ranges.size(); i++){
-            float r = front->ranges[i];
-            if (r >= front->range_min && r <= front->range_max)
+        for(int i = 0; i < back->ranges.size(); i++){
+            float r = back->ranges[i];
+            if (r >= back->range_min && r <= back->range_max)
                 msg.ranges[i] = r < 0.3f ? std::numeric_limits<float>::infinity() : r;
         }
         /*float angle = front->angle_min;
@@ -73,8 +73,8 @@ private:
 public:
 	void init(){
         pub = n.advertise<sensor_msgs::LaserScan>("/scan", 1000);
-		message_filters::Subscriber<sensor_msgs::LaserScan> sub1(n, "/scan_front", 1);
-		message_filters::Subscriber<sensor_msgs::LaserScan> sub2(n, "/scan_back", 1);
+		message_filters::Subscriber<sensor_msgs::LaserScan> sub1(n, "/scan_front", 10);
+		message_filters::Subscriber<sensor_msgs::LaserScan> sub2(n, "/scan_back", 10);
 		typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::LaserScan, sensor_msgs::LaserScan> MySyncPolicy;
 		message_filters::Synchronizer<MySyncPolicy> sync(MySyncPolicy(10), sub1, sub2);
 		sync.registerCallback(boost::bind(&Mapping::merge_scan, this, _1, _2));
