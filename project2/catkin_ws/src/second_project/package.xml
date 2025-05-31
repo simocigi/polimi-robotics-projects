@@ -36,6 +36,12 @@
   <build_depend>nav_msgs</build_depend>
   <build_depend>tf</build_depend>
   <build_depend>message_filters</build_depend>
+  <build_depend>laser_geometry</build_depend>
+  <build_depend>gmapping</build_depend>
+  <build_depend>amcl</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>move_base_msgs</build_depend>
+  <build_depend>stage_ros</build_depend>
  
   <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
@@ -43,6 +49,12 @@
   <build_export_depend>nav_msgs</build_export_depend>
   <build_export_depend>tf</build_export_depend>
   <build_export_depend>message_filters</build_export_depend>
+  <build_export_depend>laser_geometry</build_export_depend>
+  <build_export_depend>gmapping</build_export_depend>
+  <build_export_depend>amcl</build_export_depend>
+  <build_export_depend>actionlib</build_export_depend>
+  <build_export_depend>move_base_msgs</build_export_depend>
+  <build_export_depend>stage_ros</build_export_depend>
 
   <exec_depend>roscpp</exec_depend>
   <exec_depend>std_msgs</exec_depend>
@@ -50,6 +62,12 @@
   <exec_depend>nav_msgs</exec_depend>
   <exec_depend>tf</exec_depend>
   <exec_depend>message_filters</exec_depend>
+  <exec_depend>laser_geometry</exec_depend>
+  <exec_depend>actionlib</exec_depend>
+  <exec_depend>move_base_msgs</exec_depend>
+  <exec_depend>stage_ros</exec_depend>
+  <exec_depend>gmapping</exec_depend>
+  <exec_depend>amcl</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
