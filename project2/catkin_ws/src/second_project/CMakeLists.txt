@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
 	nav_msgs
 	tf
 	message_filters
+	#slam_gmapping
 )
 
 ## Declare a catkin package
@@ -19,6 +20,7 @@ catkin_package( CATKIN_DEPENDS
 	nav_msgs
 	tf
 	message_filters
+	#slam_gmapping
 )
 
 ## Build talker and listener
