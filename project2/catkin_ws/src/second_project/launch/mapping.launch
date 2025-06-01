@@ -6,6 +6,9 @@
     <arg name="odom_frame"  default="odom"/>
 
     <node pkg="second_project" type="mapping" name="mapping"/>
+//    <node pkg="second_project" type="convert_odom" name="convert_odom"/>
+//    <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_body" 
+//      args="0 0 0 0 0 0 1 base_link body_link" />
 
     <node pkg="tf2_ros" type="static_transform_publisher" name="tf_sick_front"
       args="0.3 0 -0.115 1 0 0 0 base_link sick_front"/>
