@@ -5,6 +5,7 @@ start/
 */catkin_ws/src/CMakeLists.txt
 docker/
 .idea/
+cmake-build-debug/
 
 devel/
 logs/

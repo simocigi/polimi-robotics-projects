@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
 	sensor_msgs
 	nav_msgs
 	tf
+	tf2_ros
 	message_filters
 	#slam_gmapping
 )
@@ -19,6 +20,7 @@ catkin_package( CATKIN_DEPENDS
 	sensor_msgs
 	nav_msgs
 	tf
+	tf2_ros
 	message_filters
 	#slam_gmapping
 )
@@ -28,6 +30,7 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 
 add_executable(mapping src/mapping.cpp)
 target_link_libraries(mapping ${catkin_LIBRARIES})
+add_dependencies(mapping ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 add_executable(convert_odom src/convert_odom.cpp)
 target_link_libraries(convert_odom ${catkin_LIBRARIES})
