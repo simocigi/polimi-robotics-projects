@@ -71,7 +71,7 @@ Visualization Manager:
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
-      Size (Pixels): 5
+      Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Points
       Topic: /scan
@@ -135,6 +135,80 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: false
+    - Alpha: 0.699999988079071
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /map
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
+    - Class: rviz/TF
+      Enabled: true
+      Filter (blacklist): ""
+      Filter (whitelist): ""
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        base_link:
+          Value: true
+        body_link:
+          Value: false
+        front_left_steer_link:
+          Value: false
+        front_left_wheel_link:
+          Value: false
+        front_right_steer_link:
+          Value: false
+        front_right_wheel_link:
+          Value: false
+        map:
+          Value: false
+        odom:
+          Value: false
+        rear_left_steer_link:
+          Value: false
+        rear_left_wheel_link:
+          Value: false
+        rear_right_steer_link:
+          Value: false
+        rear_right_wheel_link:
+          Value: false
+        sick_back:
+          Value: false
+        sick_front:
+          Value: false
+      Marker Alpha: 1
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        map:
+          odom:
+            base_link:
+              body_link:
+                front_left_steer_link:
+                  front_left_wheel_link:
+                    {}
+                front_right_steer_link:
+                  front_right_wheel_link:
+                    {}
+                rear_left_steer_link:
+                  rear_left_wheel_link:
+                    {}
+                rear_right_steer_link:
+                  rear_right_wheel_link:
+                    {}
+              sick_back:
+                {}
+              sick_front:
+                {}
+      Update Interval: 0
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -163,7 +237,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 29.369234085083008
+      Distance: 25.04237174987793
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -171,17 +245,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: -1.608512282371521
+        Y: 0.8686462640762329
+        Z: 2.9880123138427734
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.549796223640442
+      Pitch: 1.4347963333129883
       Target Frame: <Fixed Frame>
-      Yaw: 5.713583469390869
+      Yaw: 5.438578128814697
     Saved: ~
 Window Geometry:
   Displays:
