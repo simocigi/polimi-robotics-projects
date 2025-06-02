@@ -21,20 +21,18 @@ private:
 
 	//bool ref_set = false;
 
-
 	void getGPS(const sensor_msgs::NavSatFix::ConstPtr & _msg){
 		lat = _msg->latitude * M_PI/180;
 		lon = _msg->longitude * M_PI/180;
 		alt = _msg->altitude;
-		
+
 		/*if (!ref_set) {
 			lat_r = lat;
 			lon_r = lon;
 			alt_r = alt;
 			ref_set = true;
-      ROS_INFO("\nlat_r = %f\nlon_r = %f\nalt_r = %f", lat_r, lon_r, alt_r);
+            		ROS_INFO("\nlat_r = %f\nlon_r = %f\nalt_r = %f", lat_r, lon_r, alt_r);
 		}*/
-
 
 		gps_to_odom();
 		compute_yaw();
@@ -114,7 +112,6 @@ private:
 
 public:
 	void init(){
-
 		ros::param::get("lat_r", lat_r);
 		ros::param::get("lon_r", lon_r);
 		ros::param::get("alt_r", alt_r);
