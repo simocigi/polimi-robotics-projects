@@ -18,7 +18,7 @@ private:
 
 	const double wheelbase = 1.765;
 	const int steer_factor = 32;
-	double x = 0.0, y = 0.0, yaw = 90;
+	double x = 0.0, y = 0.0, yaw = M_PI/2;
 
 	void compute_odometry(const geometry_msgs::PointStampedConstPtr & _msg){
 		double steer = _msg->point.x / steer_factor * M_PI / 180; // rad
@@ -27,20 +27,21 @@ private:
 		double dt = (current_time - last_time).toSec();
 		last_time = current_time;
 		double omega = speed / wheelbase * tan(steer);
-        	// Euler integration
+
+        // Euler integration
 		/*
 		x += speed * cos(yaw) * dt;
 		y += speed * sin(yaw) * dt;
 		yaw += omega * dt;
 		*/
 
-	//exact integration + runge-kutta
+	    //exact integration + runge-kutta
 		if(omega<0.01 && omega>-0.01){
 			//runge-kutta	
 			x += speed * dt * cos(yaw + omega*dt/2);
 			y += speed * dt * sin(yaw + omega*dt/2);
 			yaw += omega * dt;
-		} else{
+		}else{
 			//exact approx
 			double old_yaw = yaw;
 			yaw += omega * dt;
@@ -55,8 +56,8 @@ private:
 	void publish_message(double speed, double omega){
 		nav_msgs::Odometry msg;
 		msg.header.stamp = ros::Time::now();
-		msg.header.frame_id = "start";
-		msg.child_frame_id = "odom";
+		msg.header.frame_id = "odom";
+		msg.child_frame_id = "vehicle";
 		msg.pose.pose.position.x = x;
 		msg.pose.pose.position.y = y;
 		msg.pose.pose.position.z = 0.0;
@@ -65,15 +66,15 @@ private:
 		msg.twist.twist.linear.y = speed*sin(yaw);
 		msg.twist.twist.angular.z = omega;
 		this->pub.publish(msg);
-		ROS_INFO("Published message. Position: (%.2f, %.2f, 0.0), Orientation: %.2f", x, y, yaw);
+		ROS_INFO("Published odometer message. Position: (%.2f, %.2f, 0.0), Orientation: %.2f", x, y, yaw * 180 / M_PI);
 	}
 
 	void publish_tf(){
 		tf_tr.setOrigin(tf::Vector3(x, y, 0.0));
 		tf_q.setRPY(0, 0, yaw);
 		tf_tr.setRotation(tf_q);
-		tf_br.sendTransform(tf::StampedTransform(tf_tr, ros::Time::now(), "start", "odom"));
-		ROS_INFO("Published tf. Position: (%.2f, %.2f, 0.0), Orientation: %.2f", x, y, yaw);
+		tf_br.sendTransform(tf::StampedTransform(tf_tr, ros::Time::now(), "odom", "vehicle"));
+		ROS_INFO("Published tf odom-vehicle.");
 	}
 	
 
