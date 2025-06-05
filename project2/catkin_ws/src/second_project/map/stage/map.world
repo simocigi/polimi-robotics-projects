@@ -1,4 +1,4 @@
-include "robot.inc"
+include "turtlebot.inc"
 
 define floorplan model
 (
@@ -30,8 +30,8 @@ window
 floorplan
 (
   name "map"
-  bitmap "../map.pgm"
-  size [ 41.6 30.4 2.0 ]       
+  bitmap "../map.png"
+  size [ 41.6 30.4 2.0 ]
   pose [ 20.8 15.2 0.0 0.0 ]  
   #pose [ 0.0 0.0 0.0 0.0 ]  
 )
@@ -39,8 +39,8 @@ floorplan
 # throw in a robot
 turtlebot
 (
-  pose [ 20.8 15.2 0.0 0.0 ]
+  pose [ 20.12 17.47 0.0 0.0 ]
   #pose [ 0.0 0.0 0.0 0.0 ]
-  name "robot"
+  name "giancarlo"
   color "black"
 )
