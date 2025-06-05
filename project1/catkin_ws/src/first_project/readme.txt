@@ -1,0 +1,1 @@
+We noticed that sometimes, when the launch file is launched, it gets bugged and strange values are printed. We suggest to stop it and launch it again to fix it.
