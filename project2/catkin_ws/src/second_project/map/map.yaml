@@ -1,4 +1,4 @@
-image: /home/robotics/catkin_ws/src/second_project/map/map.pgm
+image: /home/robotics/catkin_ws/src/second_project/map/map.png
 resolution: 0.050000
 #origin: [-21.200000, -21.200000, 0.000000]
 #origin: [-20.8, -15.2, 0.0]
