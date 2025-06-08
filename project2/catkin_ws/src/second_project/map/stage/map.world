@@ -31,15 +31,17 @@ floorplan
 (
   name "map"
   bitmap "../map.png"
-  size [ 41.6 30.4 2.0 ]
-  pose [ 20.8 15.2 0.0 0.0 ]  
+  #size [ 41.6 30.4 2.0 ]
+  #pose [ 20.8 15.2 0.0 0.0 ]
+  size [ 33.55 24.5 2.0 ]
+  pose [ 16.775 12.25 0.0 0.0 ]
   #pose [ 0.0 0.0 0.0 0.0 ]  
 )
 
 # throw in a robot
 turtlebot
 (
-  pose [ 20.12 17.47 0.0 0.0 ]
+  pose [ 11.0 11.0 0.0 0.0 ]
   #pose [ 0.0 0.0 0.0 0.0 ]
   name "giancarlo"
   color "black"
