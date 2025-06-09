@@ -10,7 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
 	tf
 	tf2_ros
 	message_filters
-	#slam_gmapping
+	move_base_msgs
 )
 
 ## Declare a catkin package
@@ -22,7 +22,7 @@ catkin_package( CATKIN_DEPENDS
 	tf
 	tf2_ros
 	message_filters
-	#slam_gmapping
+	move_base_msgs
 )
 
 ## Build talker and listener
@@ -34,3 +34,7 @@ add_dependencies(mapping ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_T
 
 add_executable(convert_odom src/convert_odom.cpp)
 target_link_libraries(convert_odom ${catkin_LIBRARIES})
+
+add_executable(send_goal src/send_goal.cpp)
+target_link_libraries(send_goal ${catkin_LIBRARIES})
+add_dependencies(send_goal ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
