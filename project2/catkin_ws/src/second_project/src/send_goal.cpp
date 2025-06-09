@@ -23,7 +23,7 @@ private:
         goal.target_pose.header.stamp = ros::Time::now();
         goal.target_pose.pose.position.x = x;
         goal.target_pose.pose.position.y = y;
-        geometry_msgs::Quaternion q = tf::createQuaternionMsgFromYaw(theta);
+        geometry_msgs::Quaternion q = tf::createQuaternionMsgFromYaw(theta * M_PI/180);
         goal.target_pose.pose.orientation = q;
         client.sendGoal(goal);
         client.waitForResult();
