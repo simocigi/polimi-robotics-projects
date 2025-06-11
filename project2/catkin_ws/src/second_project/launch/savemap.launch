@@ -1,4 +1,4 @@
 <launch>
     <!-- DA RIMUOVERE -->
-    <node pkg="map_server" type="map_saver" name="map_saver" args="-f $(find second_project)/map/map"/>
+    <node pkg="map_server" type="map_saver" name="map_saver" args="-f $(find second_project)/map/test"/>
 </launch>
