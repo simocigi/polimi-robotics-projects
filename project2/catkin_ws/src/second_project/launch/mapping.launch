@@ -22,7 +22,7 @@
       args="-0.3 0 -0.115 0 1 0 0 base_link sick_back"/>
 
     <!-- Generate map -->
-    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <!--<node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
         <param name="base_frame" value="$(arg base_frame)"/>
         <param name="odom_frame" value="$(arg odom_frame)"/>
         <param name="map_update_interval" value="5.0"/>
@@ -58,11 +58,11 @@
         <param name="lasamplerange" value="0.005"/>
         <param name="lasamplestep" value="0.005"/>
         <remap from="scan" to="$(arg scan_topic)"/>
-    </node>
+    </node>-->
 
-    <!--><node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
-          <rosparam command="load" file="$(find second_project)/cfg/slam_config.yaml" />
-        </node>-->
+    <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
+        <rosparam command="load" file="$(find second_project)/cfg/slam_config.yaml" />
+    </node>
 
     <!-- rviz -->
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(find second_project)/rviz/mapping.rviz"/>
