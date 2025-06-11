@@ -18,7 +18,7 @@ private:
     tf2::Vector3    t_front, t_back;
 
 	const float ROBOT_LENGTH = 0.54f, ROBOT_WIDTH = 0.4f, FILTER = 0.35f;
-    const double angle_min = - M_PI, angle_max = M_PI, angle_increment = 0.00581718236207962;
+    const double angle_min = - 3.14, angle_max = 3.14, angle_increment = 0.005817;
     const int N = ceil((angle_max - angle_min) / angle_increment);
 
 	void merge_scan(const sensor_msgs::LaserScanConstPtr &front, const sensor_msgs::LaserScanConstPtr &back){
