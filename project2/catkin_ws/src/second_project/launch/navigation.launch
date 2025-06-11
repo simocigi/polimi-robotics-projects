@@ -1,8 +1,41 @@
 <launch>
     <param name="/use_sim_time" value="true"/>
     <param name="csv" value="$(find second_project)/csv/goals.csv"/>
+    <arg name="initial_pose_x" default="0.0"/>
+    <arg name="initial_pose_y" default="0.0"/>
+    <arg name="initial_pose_a" default="0.0"/>
 
+    <arg name="world_file" default="$(find second_project)/stage/map.world"/>
+    <arg name="map_file" default="$(find second_project)/map/map.yaml"/>
+
+    <!-- Robot simulation -->
+    <node pkg="stage_ros" type="stageros" name="stageros" args="$(arg world_file)">
+        <param name="base_watchdog_timeout" value="0.5"/>
+    </node>
+
+    <!-- Maps -->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)">
+        <param name="frame_id" value="map"/>
+        <remap from="base_scan" to="scan"/>
+    </node>
+
+    <!-- Move base -->
+    <include file="$(find second_project)/launch/move_base.launch"/>
+
+    <!-- Controller node -->
     <node pkg="second_project" type="send_goal" name="send_goal" output="screen"/>
 
-    <include file="$(find second_project)/launch/robot_amcl.launch"></include>
+    <!-- amcl -->
+    <include file="$(find second_project)/launch/amcl.launch">
+        <arg name="scan_topic" value="scan"/>
+        <arg name="use_map_topic" value="true"/>
+        <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+        <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+        <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+     </include>
+
+     <!-- rviz -->
+     <node pkg="rviz" type="rviz" name="rviz" args="-d $(find second_project)/rviz/navigation.rviz"/>
+
+     <node pkg="rqt_tf_tree" type="rqt_tf_tree" name="rqt_tf_tree"/>
 </launch>
