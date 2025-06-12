@@ -1,6 +1,7 @@
-image: /home/robotics/catkin_ws/src/second_project/map/test.pgm
+image: /home/robotics/catkin_ws/src/second_project/map/test.png
 resolution: 0.020000
-origin: [-13.044126, -12.369020, 0.000000]
+origin: [-17.46, -9.98, 0.000000]
+#origin: [0.0, 0.0, 0.000000]
 negate: 0
 occupied_thresh: 0.65
 free_thresh: 0.196
