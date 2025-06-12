@@ -1,12 +1,12 @@
 <launch>
     <param name="/use_sim_time" value="true"/>
     <param name="csv" value="$(find second_project)/csv/goals.csv"/>
-    <arg name="initial_pose_x" default="0.0"/>
-    <arg name="initial_pose_y" default="0.0"/>
+    <arg name="initial_pose_x" default="-6.04"/>
+    <arg name="initial_pose_y" default="-1.45"/>
     <arg name="initial_pose_a" default="0.0"/>
 
     <arg name="world_file" default="$(find second_project)/stage/map.world"/>
-    <arg name="map_file" default="$(find second_project)/map/map.yaml"/>
+    <arg name="map_file" default="$(find second_project)/map/test.yaml"/>
 
     <!-- Robot simulation -->
     <node pkg="stage_ros" type="stageros" name="stageros" args="$(arg world_file)">
@@ -23,7 +23,7 @@
     <include file="$(find second_project)/launch/move_base.launch"/>
 
     <!-- Controller node -->
-    <node pkg="second_project" type="send_goal" name="send_goal" output="screen"/>
+    <!--node pkg="second_project" type="send_goal" name="send_goal" output="screen"/-->
 
     <!-- amcl -->
     <include file="$(find second_project)/launch/amcl.launch">

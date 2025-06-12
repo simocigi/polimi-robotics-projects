@@ -30,15 +30,15 @@ window
 floorplan
 (
   name "map"
-  bitmap "../map/map.png"
-  size [ 39.39 28.28 2.0 ]
-  pose [ 7.975904 9.833806 0.0 0.0 ]
+  bitmap "../map/test.png"
+  size [ 34.92 19.96 2.0 ]
+  pose [ 0.0 0.0 0.0 0.0 ]
 )
 
 # throw in a robot
 turtlebot
 (
-  pose [ 5.0 5.0 0.0 0.0 ]
+  pose [ -6.04 -1.45 0.0 0.0 ]
   name "giancarlo"
   color "black"
 )
