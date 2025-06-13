@@ -36,6 +36,4 @@
 
      <!-- rviz -->
      <node pkg="rviz" type="rviz" name="rviz" args="-d $(find second_project)/rviz/navigation.rviz"/>
-
-     <!--<node pkg="rqt_tf_tree" type="rqt_tf_tree" name="rqt_tf_tree"/>-->
 </launch>
