@@ -33,6 +33,9 @@ TebLocalPlannerROS:
   footprint_model:
     type: "polygon"
     vertices: [[-0.27, -0.2], [0.27, -0.2], [0.27, 0.2], [-0.27, 0.2]] # replace these with your robot's dimensions
+    robot_radius: 0.27
+    inflation_radius: 0.25
+
 
   # Obstace avoidance
   min_obstacle_dist: 0.02   # this is the minimum distance from obstacles, change it as needed.

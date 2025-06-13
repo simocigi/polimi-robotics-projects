@@ -28,9 +28,9 @@ private:
         client.sendGoal(goal);
         client.waitForResult();
         if (client.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-            ROS_INFO("Goal reached.");
+            ROS_INFO("Goal reached: %f, %f, %f°", x, y, theta);
         else
-            ROS_ERROR("Goal aborted.");
+            ROS_ERROR("Goal aborted: %f, %f, %f°", x, y, theta);
     }
 
 public:
