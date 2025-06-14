@@ -19,7 +19,7 @@ private:
         MoveBaseActionClient client("move_base", true);
         client.waitForServer();
         move_base_msgs::MoveBaseGoal goal;
-        goal.target_pose.header.frame_id = "base_link";
+        goal.target_pose.header.frame_id = "map";
         goal.target_pose.header.stamp = ros::Time::now();
         goal.target_pose.pose.position.x = x;
         goal.target_pose.pose.position.y = y;
