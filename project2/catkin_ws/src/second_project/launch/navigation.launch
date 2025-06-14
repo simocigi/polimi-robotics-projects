@@ -6,7 +6,7 @@
     <arg name="initial_pose_a" default="0.0"/>
 
     <arg name="world_file" default="$(find second_project)/stage/map.world"/>
-    <arg name="map_file" default="$(find second_project)/map/test.yaml"/>
+    <arg name="map_file" default="$(find second_project)/map/map.yaml"/>
 
     <!-- Robot simulation -->
     <node pkg="stage_ros" type="stageros" name="stageros" args="$(arg world_file)">
