@@ -34,14 +34,23 @@ TebLocalPlannerROS:
     type: "polygon"
     vertices: [[-0.27, -0.2], [0.27, -0.2], [0.27, 0.2], [-0.27, 0.2]] # replace these with your robot's dimensions
     robot_radius: 0.27
-    inflation_radius: 0.25
+    inflation_radius: 0.5
 
 
   # Obstace avoidance
-  min_obstacle_dist: 0.02   # this is the minimum distance from obstacles, change it as needed.
+  min_obstacle_dist: 0.25   # this is the minimum distance from obstacles, change it as needed.
   include_costmap_obstacles: True
   costmap_obstacles_behind_robot_dist: 1.0
   obstacle_poses_affected: 30
   costmap_converter_plugin: ""
   costmap_converter_spin_thread: True
   costmap_converter_rate: 5
+
+  weight_obstacle: 50.0
+  weight_inflation: 10.0
+  weight_dynamic_obstacle: 1.0
+
+  controller_frequency: 10.0
+  min_vel_x: 0.05
+  escape_vel: -0.1
+  transform_tolerance: 0.5
