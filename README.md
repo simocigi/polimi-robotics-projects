@@ -1,12 +1,7 @@
- # Istruzioni per il primo utilizzo
-- Scaricare GitHub Desktop e clonare la repo in una nuova cartella
-- Copiare e incollare i file di avvio per ROS e la cartella docker distribuiti a lezione dentro la cartella
-  - Utenti Windows/Mac: creare all'interno una nuova cartella "start" dove incollare i file utilizzati per avviare ROS
-  - Utenti Linux: incollare i file .sh per avviare ROS dentro la cartella direttamente, la sottocartella "start" non è necessaria
-- Avviare il terminale ed entrare su ROS, cd catkin_ws, catkin_make
+This repository contains the code source related to the two assignments for *Robotics* course at Politecnico di Milano during the academic year 2024/2025. ROS and Docker are involved.
 
-# Come runnare la bag
-- Avviare ROS da terminale
-- Creare una sessione con tmux e splittare
-- In una finestra, runnare roscore
-- Nell'altra, cd data e poi usare il comando: rosbag play --clock project.bag
+## Odometry and GPS
+The first projects deals with the computation in real time of the odometrhy of a vehicle, which data is collected in a bag. GPS data are provided as well, so the program provides the current sector according to GPS coordinates.
+
+## Environment mapping
+The robot is provided with a Lidar so that the surrounding environment can be mapped. Once that a map is obtained, the robot receives a goal position and it shall program a path within the environment from its current position and reach the goal.
