@@ -1,3 +1,7 @@
+![Grade](https://img.shields.io/badge/Grade-6%2F6-brightgreen?style=for-the-badge)
+![Institution](https://img.shields.io/badge/Politecnico_di_Milano-Robotics-1a3e72?style=for-the-badge)
+![Year](https://img.shields.io/badge/A.Y.-2024%2F2025-lightgrey?style=for-the-badge)
+
 This repository contains the code source related to the two assignments for *Robotics* course at Politecnico di Milano during the academic year 2024/2025. ROS and Docker are involved.
 
 ## Odometry and GPS
